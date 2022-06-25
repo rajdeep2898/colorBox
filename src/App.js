@@ -64,10 +64,10 @@ const stylesBOX =(index)=> {
             <KeyboardShortcuts key={i}
               combo={el.combo}
               cb={i===0?onChangeBox1:i===1?onChangeBox2:i==2?onChangeBox3:undefined}
-              description={el.description}
               className="col-6 box"
               style={{backgroundColor:stylesBOX(i)}}
             >
+              {el.description}
             </KeyboardShortcuts>
             
           ))}
