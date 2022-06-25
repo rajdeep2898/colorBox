@@ -7,65 +7,78 @@ import { boxData } from './static/staticData';
 
 export const ShortCutContext= React.createContext()
 function App() {
-  const [color, setColor] = React.useState(['','','']);
+  const [color1, setColor1] = React.useState('');
+  const [color2, setColor2] = React.useState('');
+  const [color3, setColor3] = React.useState('');
 
-const onChangeBox = (index) => {
-  if(color[index]===''){
-     var col = 'Coral'
+
+const onChangeBox1 = () => {
+  let col
+  if(color1===''){
+    col = 'Coral'
   } else {
     col = ''
   }
-  setColor(color => color.map((color, i) => i === index ? col : color))
-  console.log("color[0]=",color[0])
+  setColor1(col)
+  console.log("col=",col)
   }
   const onChangeBox2 = () => {
-    if(color[1]===''){
-       var col = 'BlueViolet'
+    let col
+    if(color2===''){
+        col = 'BlueViolet'
     } else {
       col = ''
     }
-    setColor(color => color.map((color, i) => i === 1 ? col : color))
-    console.log("color[1]=",color[1])
+    setColor2(col)
+  console.log("col=",col)
     }
     const onChangeBox3 = () => {
-      if(color[2]===''){
-         var col = 'Aqua'
+      let col
+      if(color3===''){
+        col = 'Aqua'
       } else {
         col = ''
       }
-      setColor(color => color.map((color, i) => i === 2 ? col : color))
-      console.log("color[2]=",color[2])
-      }
+      setColor3(col)
+      console.log("col=",col)
+    }
   
 
 const stylesBOX =(index)=> {
-    return color[index]==''? boxData[index].backgroundColor:color[index]
+  // let col = index==0 ? color1:index==1?color2:color3
+  if(index==0){
+    return color1==''? boxData[index].backgroundColor:color1
+  }else if(index==1){
+    return color2==''? boxData[index].backgroundColor:color2
+  }else if(index==2){
+    return color3==''? boxData[index].backgroundColor:color3
+  }
+  return ""
  }
-//  const stylesBOX2 = {
-//   backgroundColor: color[1],
-// }
-// const stylesBOX3 = {
-//   backgroundColor: color[2],
-// }
+
   return (
   <ShortCutContext.Provider value={boxData}>
     <div className="container">
-      {
+          <div  className = "row noMargin">
+            {
         boxData.map((el,i)=>(
-          <div key={i} className={i%2==0? "row noMargin":""}>
-            <KeyboardShortcuts
+          
+            <KeyboardShortcuts key={i}
         combo={el.combo}
-        cb={onChangeBox(i)}
+        cb={i===0?onChangeBox1:i===1?onChangeBox2:i==2?onChangeBox3:undefined}
         description={el.description}
-        className="box"
+        className="col-6 box"
         style={{backgroundColor:stylesBOX(i)}}
         
         >
           </KeyboardShortcuts>
+        ))}
+         <DisplayShortcut className="col four">
+          
+          </DisplayShortcut>
           </div>
+         
 
-        ))
-      }
       {/* <div className="row noMargin">
         <KeyboardShortcuts
         combo={shortCut[0].combo}
@@ -91,7 +104,7 @@ const stylesBOX =(index)=> {
         description={shortCut[2].description}
         className="col three"
         style={stylesBOX3}>
-          </KeyboardShortcuts>
+          </KeyboardShortcuts>}
 
         <DisplayShortcut className="col four">
           
