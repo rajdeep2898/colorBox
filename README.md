@@ -10,6 +10,7 @@ const styles = {
 const onPressFunction = () => {
     ...
 }
+return(
  <KeyboardShortcuts
     combo="shift a"
     cb={onPressFunction}
@@ -20,6 +21,7 @@ const onPressFunction = () => {
 ..//children
 <div>
 </KeyboardShortcuts>
+)
 ```
 
 
